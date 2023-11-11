@@ -21,3 +21,8 @@ rad.json
 #Test results file
 TestResults.xml
 raw_data
+preprocessed_data
+.DS_Store
+deepdive.egg-info
+build
+__pycache__
