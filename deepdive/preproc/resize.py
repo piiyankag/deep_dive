@@ -1,6 +1,6 @@
 from PIL import Image, ImageOps
 import os
-from deepdive.resizer.utils import create_directory_if_not_exists
+from deepdive.preproc.utils import create_directory_if_not_exists
 
 def resize_image_with_padding(input_path, output_path, unused_path, target_width, target_height):
     create_directory_if_not_exists(output_path)
