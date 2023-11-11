@@ -1,4 +1,4 @@
-from deepdive.resizer.resize import resize_image_with_crop, resize_image_with_padding
+from deepdive.preproc.resize import resize_image_with_crop, resize_image_with_padding
 import os
 
 # Define paths
