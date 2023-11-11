@@ -4,7 +4,7 @@ import json
 from base64 import b64decode
 
 json_dir = './raw_data/CleanSea/'
-output_dir = 'preprocessed_data/debris/'
+output_dir = 'preprocessed_data/original_sizes/'
 
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
