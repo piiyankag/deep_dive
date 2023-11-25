@@ -26,3 +26,5 @@ preprocessed_data
 deepdive.egg-info
 build
 __pycache__
+.env
+test.ipynb
