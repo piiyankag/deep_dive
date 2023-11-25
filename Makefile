@@ -10,3 +10,12 @@ download_data:
 
 load_data:
 	python -c 'from deepdive.ml_logic.data import load_data; load_data()'
+
+get_classes:
+	python -c 'from deepdive.ml_logic.data import get_class_names; get_class_names()'
+
+run_train:
+	python -c 'from deepdive.interface.main import train; train()'
+
+run_api:
+	uvicorn deepdive.api.fast:app --reload

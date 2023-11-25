@@ -21,8 +21,8 @@ GCR_REGION = os.environ.get("GCR_REGION")
 GCR_MEMORY = os.environ.get("GCR_MEMORY")
 
 ##################  CONSTANTS  #####################
-LOCAL_DATA_PATH = os.path.join(os.path.expanduser('~'), ".lewagon", "mlops", "data")
-LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), ".lewagon", "mlops", "training_outputs")
+LOCAL_DATA_PATH = os.path.join(os.path.expanduser('~'), ".lewagon", "deep_dive", "data")
+LOCAL_REGISTRY_PATH =  os.path.join(os.path.expanduser('~'), ".lewagon", "deep_dive", "training_outputs")
 
 
 

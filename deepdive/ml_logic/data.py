@@ -3,10 +3,17 @@ import requests
 import os
 import zipfile
 
-def hello():
-    print("Hello from data.py")
+def clean_downloads():
+    data_dir = os.environ.get("DATA_PATH")
+    if os.path.exists(data_dir):
+        print('Cleaning up data directory')
+        os.system('rm -rf {}'.format(data_dir))
 
 def download_data():
+    if(os.path.exists(os.environ.get("DATA_PATH"))):
+        print('Data already downloaded')
+        return
+
     url = os.environ.get('DATA_URL')
     data_dir = os.environ.get("DATA_EXTRACT_PATH")
     if not os.path.exists(data_dir):
@@ -23,7 +30,9 @@ def download_data():
 
     print('Data downloaded and extracted to {}'.format(data_dir))
 
-    return data_file
+def get_class_names():
+    data_dir = os.environ.get("DATA_PATH")
+    return os.listdir(data_dir)
 
 def load_data():
     data_dir = os.environ.get("DATA_PATH")
@@ -45,7 +54,6 @@ def load_data():
     class_names = train_ds.class_names
     print(class_names)
 
-
     # prepare val set
     val_ds = image_dataset_from_directory(
         data_dir,
@@ -57,7 +65,7 @@ def load_data():
         batch_size=batch_size)
 
     for image_batch, labels_batch in train_ds:
-        print('train ds shape')@
+        print('train ds shape')
         print(image_batch.shape)
         print(labels_batch.shape)
         break
