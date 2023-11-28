@@ -72,5 +72,5 @@ def build_model(train_ds, class_names):
     opt = optimizers.Adam(learning_rate=1e-4)
     model.compile(loss='categorical_crossentropy',
                   optimizer=opt,
-                  metrics=['accuracy', tf.keras.metrics.F1Score()])
+                  metrics=['accuracy', tf.keras.metrics.F1Score(), tf.keras.metrics.Recall()])
     return model

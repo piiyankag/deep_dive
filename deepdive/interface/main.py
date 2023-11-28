@@ -1,5 +1,5 @@
 from deepdive.params import *
-from deepdive.ml_logic.data import download_data, load_data
+from deepdive.ml_logic.data import download_data, load_data, get_class_names
 from deepdive.ml_logic.model import build_model
 from deepdive.ml_logic.preprocessor import preprocess_dataset, load_and_preprocess_image
 from deepdive.ml_logic.registry import save_results, save_model, load_model
@@ -8,7 +8,10 @@ from pathlib import Path
 from colorama import Fore, Style
 from dateutil.parser import parse
 
+import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
+from sklearn.metrics import classification_report
+
 
 
 def preprocess() -> None:
@@ -61,6 +64,51 @@ def train() -> float:
 
     return val_f1_score
 
+
+def evaluate():
+    print(Fore.MAGENTA + "\n⭐️ Use case: evaluate" + Style.RESET_ALL)
+    print(Fore.BLUE + "\nLoading preprocessed validation data..." + Style.RESET_ALL)
+
+    model = load_model()
+    assert model is not None
+
+    train_ds, val_ds, class_names = preprocess()
+
+    val_results = model.evaluate(val_ds, verbose=1)
+    print("✅ evaluate() done \n")
+    print(val_results)
+
+    return val_results
+
+def detailed_evaluation():
+    print(Fore.MAGENTA + "\n⭐️ Use case: Detailed evaluation" + Style.RESET_ALL)
+    print(Fore.BLUE + "\nLoading preprocessed validation data..." + Style.RESET_ALL)
+    model = load_model()
+    assert model is not None
+
+    train_ds, val_ds, class_names = preprocess()
+
+    true_labels = []
+    predictions = []
+    predicted_classes = []
+    for images, labels in val_ds:
+        true_labels.extend(labels.numpy())
+        preds = model.predict(images)
+        predicted_class = np.argmax(preds, axis=1)
+        predicted_classes.extend(predicted_class)
+
+    true_classes = [tf.where(tf.equal(tensor, 1.0))[0][0].numpy() for tensor in true_labels]
+    numeric_labels = list(range(15))
+
+    # Calculate classification report
+    report = classification_report(true_classes, predicted_classes,
+                               target_names=class_names,
+                               labels=numeric_labels)
+
+    print("✅ detailed_evaluation() done \n")
+    print(report)
+
+    return report
 
 def pred(url: str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc4w6Ey0a05Et7my42NDnAn9CTvbrFx8CSmA&usqp=CAU") -> str:
     """

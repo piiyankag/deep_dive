@@ -17,5 +17,8 @@ get_classes:
 run_train:
 	python -c 'from deepdive.interface.main import train; train()'
 
+run_detailed_evaluation:
+	python -c 'from deepdive.interface.main import detailed_evaluation; detailed_evaluation()'
+
 run_api:
 	uvicorn deepdive.api.fast:app --reload
