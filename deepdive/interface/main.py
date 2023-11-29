@@ -123,8 +123,18 @@ def pred(url: str = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc4w6
     X_processed = load_and_preprocess_image(url)
     y_pred = model.predict(X_processed)
 
-    print("\n✅ prediction done: ", y_pred, y_pred.shape, "\n")
-    return y_pred
+    top_3_indices = np.argsort(y_pred[0])[-3:][::-1]
+
+    # Get the probabilities of the top 3 predictions
+    top_3_probs = y_pred[0][top_3_indices]
+
+    print("\n✅ Top 3 Predictions:")
+    for idx, prob in zip(top_3_indices, top_3_probs):
+        print(f"Class {idx}: Probability {prob}")
+
+    print("\nPrediction details: ", y_pred, y_pred.shape, "\n")
+
+    return top_3_indices, top_3_probs
 
 
 if __name__ == '__main__':

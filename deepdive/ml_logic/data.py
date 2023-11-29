@@ -32,7 +32,10 @@ def download_data():
 
 def get_class_names():
     data_dir = os.environ.get("DATA_PATH")
-    return os.listdir(data_dir)
+    content = os.listdir(data_dir)
+    filtered_content = [file for file in content if file != '.DS_Store']
+
+    return sorted(filtered_content)
 
 def load_data():
     data_dir = os.environ.get("DATA_PATH")

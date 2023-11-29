@@ -36,8 +36,24 @@ async def predict(file: UploadFile = File(...)):
     # Process predictions
     predicted_class = np.argmax(y_pred, axis=1)
 
+    top_3_indices = np.argsort(y_pred[0])[-3:][::-1]
+    top_3_class_names = [app.state.class_names[idx] for idx in top_3_indices]
+
+
+    # Get the probabilities of the top 3 predictions
+    top_3_probs = y_pred[0][top_3_indices]
+
+    print("\n✅ Top 3 Predictions:")
+    for idx, prob in zip(top_3_indices, top_3_probs):
+        print(f"Class {idx}: Probability {prob}")
+
+    print("\nPrediction details: ", y_pred, y_pred.shape, "\n")
+
+    #return top_3_indices, top_3_probs
+
     return {
-        'category': app.state.class_names[int(predicted_class)]
+        'category': app.state.class_names[int(predicted_class)],
+        'meta': zip(top_3_class_names, top_3_probs.tolist())
     }
 
 

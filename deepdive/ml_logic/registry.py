@@ -54,7 +54,7 @@ def save_model(model: keras.Model = None) -> None:
     try:
         os.makedirs(os.path.join(LOCAL_REGISTRY_PATH, "models"))
     except:
-        print('Model directory already exists')
+        pass
 
     # Save model locally
     model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", f"{timestamp}.keras")
@@ -129,7 +129,7 @@ def load_model(stage="Production") -> keras.Model:
         try:
             os.makedirs(LOCAL_REGISTRY_PATH)
         except:
-            print('Directory already exists')
+            pass
 
         try:
             latest_blob = max(blobs, key=lambda x: x.updated)
@@ -138,7 +138,7 @@ def load_model(stage="Production") -> keras.Model:
             if not os.path.exists(latest_model_path_to_save):
                 latest_blob.download_to_filename(latest_model_path_to_save)
             else:
-                print('Model already downloaded')
+                print('Model already downloaded: ' + latest_blob.name)
 
             latest_model = keras.models.load_model(latest_model_path_to_save)
 
