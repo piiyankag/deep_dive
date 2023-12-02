@@ -28,3 +28,6 @@ build
 __pycache__
 .env
 test.ipynb
+.env.prod
+.env.yaml
+google_credentials.json

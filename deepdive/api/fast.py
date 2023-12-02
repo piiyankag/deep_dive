@@ -53,7 +53,7 @@ async def predict(file: UploadFile = File(...)):
 
     return {
         'category': app.state.class_names[int(predicted_class)],
-        'meta': zip(top_3_class_names, top_3_probs.tolist())
+        'probabilities': zip(top_3_class_names, top_3_probs.tolist())
     }
 
 
